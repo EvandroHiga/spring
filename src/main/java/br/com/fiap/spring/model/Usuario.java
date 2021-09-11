@@ -1,5 +1,6 @@
 package br.com.fiap.spring.model;
 
+import br.com.fiap.spring.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,4 +17,7 @@ public class Usuario {
     private String username;
     @Column
     private String password;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

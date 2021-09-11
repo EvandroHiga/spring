@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/usuarios/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/alunos").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/alunos/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                     .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

@@ -61,6 +61,11 @@ public class InsrtAlunoFlatfile implements ApplicationRunner {
                         alunoList.add(aluno);
 
                         if(alunoList.size() == ARRAY_SIZE){
+
+
+                            // TODO Nao esta salvando a lista inteira. Verificar!!!!
+
+
                             repository.saveAll(alunoList);
 
                             logger.info(TITULO_LISTA_ALUNOS_INSERIDOS);

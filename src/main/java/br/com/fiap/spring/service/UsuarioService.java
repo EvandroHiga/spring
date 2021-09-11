@@ -40,6 +40,11 @@ public class UsuarioService {
         usuario.setUsername(createUserDTO.getUsername());
         usuario.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
 
+
+        //TODO Settar a role do usuario novo
+        usuario.setRole(createUserDTO.getRole());
+
+
         Usuario usuarioSalvo = repository.save(usuario);
 
         return usuarioModelToDto(usuarioSalvo);

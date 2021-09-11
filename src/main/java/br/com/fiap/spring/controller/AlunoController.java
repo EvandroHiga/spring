@@ -5,6 +5,7 @@ import br.com.fiap.spring.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class AlunoController {
     @Autowired
     AlunoService service;
 
-    @GetMapping
-//    @Secured("ADMIN") // TODO Role:
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN") // TODO Role:
     public ResponseEntity getAllAlunos(){
         List<AlunoDto> listAlunos = service.getAllAlunos();
         return ResponseEntity.status(HttpStatus.OK).body(listAlunos);
