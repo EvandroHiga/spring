@@ -1,2 +1,18 @@
 CREATE DATABASE IF NOT EXISTS car_cred_fiap;
+
 USE car_cred_fiap;
+
+CREATE TABLE alunos (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(255),
+	rm VARCHAR(7),
+	cod VARCHAR(6),
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE usuarios (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(255) UNIQUE NOT NULL,
+	password VARCHAR(255),
+	PRIMARY KEY (id)
+);

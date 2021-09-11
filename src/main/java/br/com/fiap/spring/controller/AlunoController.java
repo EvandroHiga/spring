@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class AlunoController {
     AlunoService service;
 
     @GetMapping
+//    @Secured("ADMIN") // TODO Role:
     public ResponseEntity getAllAlunos(){
         List<AlunoDto> listAlunos = service.getAllAlunos();
         return ResponseEntity.status(HttpStatus.OK).body(listAlunos);
