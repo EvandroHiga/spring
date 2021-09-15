@@ -63,7 +63,7 @@ public class InsrtAlunoFlatfile implements ApplicationRunner {
                         if(alunoList.size() == ARRAY_SIZE){
 
 
-                            // TODO Nao esta salvando a lista inteira. Verificar!!!!
+                            // TODO Nao esta salvando a lista inteira. Consertar!
 
 
                             repository.saveAll(alunoList);

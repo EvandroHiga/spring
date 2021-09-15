@@ -20,7 +20,7 @@ public class AlunoController {
     AlunoService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("ROLE_ADMIN") // TODO Role:
+    @Secured("ROLE_ADMIN") // TODO Annotation ou HttpSecurity?
     public ResponseEntity getAllAlunos(){
         List<AlunoDto> listAlunos = service.getAllAlunos();
         return ResponseEntity.status(HttpStatus.OK).body(listAlunos);

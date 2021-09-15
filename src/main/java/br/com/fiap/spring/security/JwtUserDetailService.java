@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JwtUserDetailService implements UserDetailsService {
@@ -23,18 +22,14 @@ public class JwtUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
-        if (usuario.isPresent()){
-            List roles = new ArrayList<GrantedAuthority>();
-            roles.add(new SimpleGrantedAuthority(usuario.get().getRole().getDescricao()));
+        Usuario usuario = usuarioRepository.findByUsername(username);
 
-            return new User(
-                    usuario.get().getUsername(),
-                    usuario.get().getPassword(),
-                    roles);
-        } else {
-            throw new UsernameNotFoundException(
-                    new StringBuilder().append("Usuario ").append(username).append(" nao encontrado").toString());
-        }
+        List roles = new ArrayList<GrantedAuthority>();
+        roles.add(new SimpleGrantedAuthority(usuario.getRole().getDescricao()));
+
+        return new User(
+                usuario.getUsername(),
+                usuario.getPassword(),
+                roles);
     }
 }

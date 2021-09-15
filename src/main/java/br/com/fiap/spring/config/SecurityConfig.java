@@ -39,15 +39,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(jwtUserDetailService).passwordEncoder(passwordEncoder);
     }
 
-    // TODO Authorization Config
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
+
+                /** actuator */
                 .antMatchers("/actuator/health").permitAll()
-                .antMatchers("/usuarios/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/alunos/**").hasRole("ADMIN")
+                /** usuarios */
+                .antMatchers("/usuarios/login").permitAll()
+                .antMatchers("/usuarios/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/usuarios/**").hasRole("ADMIN")
+                /** alunos */ // TODO Implementar 'Alunos'
+//                .antMatchers(HttpMethod.POST,"/alunos/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                     .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

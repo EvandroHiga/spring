@@ -7,10 +7,7 @@ import br.com.fiap.spring.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("usuarios")
@@ -19,18 +16,28 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
+    @GetMapping("{id}")
+    public ResponseEntity getUsuarioById(@PathVariable Long id){
+        UsuarioDto usuarioDto = service.getUsuarioById(id);
+        if(usuarioDto == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
+        }
+    }
+
     @PostMapping
     public ResponseEntity create (@RequestBody UsuarioDto usuarioDto){
         UsuarioDto usuarioCriado = service.create(usuarioDto);
-
-        // TODO Colocar o path do usuario criado no header???
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("Location","/usuarios/" + usuarioCriado.getId())
+                .build();
     }
 
     @PostMapping("login")
-    public JwtTokenDto login(@RequestBody AuthDto authDto){
-        return service.login(authDto);
+    public ResponseEntity login(@RequestBody AuthDto authDto){
+        JwtTokenDto token = service.login(authDto);
+        return ResponseEntity.status(HttpStatus.OK).body(token.getJwtToken());
     }
 
 }

@@ -1,6 +1,5 @@
 package br.com.fiap.spring.security;
 
-
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,9 +39,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
 
-        if(tokenHeaderAuthorization != null && tokenHeaderAuthorization.startsWith(BEARER_PREFIX)){
+        if(tokenHeaderAuthorization == null){
+            logger.info(TOKEN_JWT_AUSENTE);
+        } else if(!(tokenHeaderAuthorization.startsWith(BEARER_PREFIX))){
+            logger.info(TOKEN_JWT_FORA_PADRAO_BEARER);
+        } else {
             jwtToken = tokenHeaderAuthorization.replace(BEARER_PREFIX, "");
-
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException illegalArgumentException) {
@@ -50,8 +52,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException expiredJwtException) {
                 logger.info(ERRO_TOKEN_EXPIRADO);
             }
-        } else {
-            logger.info(ERRO_TOKEN_JWT);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
