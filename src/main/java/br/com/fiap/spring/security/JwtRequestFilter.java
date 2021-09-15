@@ -50,7 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException illegalArgumentException) {
                 logger.info(ERRO_TOKEN_PARSE);
             } catch (ExpiredJwtException expiredJwtException) {
-                logger.info(ERRO_TOKEN_EXPIRADO);
+                logger.info(TOKEN_EXPIRADO);
             }
         }
 

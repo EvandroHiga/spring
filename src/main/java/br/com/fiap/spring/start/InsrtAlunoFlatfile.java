@@ -47,35 +47,30 @@ public class InsrtAlunoFlatfile implements ApplicationRunner {
         if(resource.exists()){
             try{
                 BufferedReader reader = new BufferedReader(new FileReader(resource.getFile()));
-                List<Aluno> alunoList = new ArrayList();
                 String line = "";
+                List<Aluno> alunoList = new ArrayList();
 
                 while((line = reader.readLine()) != null){
                     Matcher matcher = REGEX_NOME.matcher(line);
+                    Aluno aluno = new Aluno();
 
                     if(matcher.find()){
-                        Aluno aluno = new Aluno();
                         aluno.setNome(line.substring(NOME_INDEX_START, NOME_INDEX_END).toUpperCase().trim());
                         aluno.setRm(line.substring(RM_INDEX_START, RM_INDEX_END).trim());
                         aluno.setCod(line.substring(COD_INDEX_START, COD_INDEX_END).trim());
                         alunoList.add(aluno);
 
                         if(alunoList.size() == ARRAY_SIZE){
-
-
-                            // TODO Nao esta salvando a lista inteira. Consertar!
-
-
-                            repository.saveAll(alunoList);
-
-                            logger.info(TITULO_LISTA_ALUNOS_INSERIDOS);
-                            alunoList.forEach(n -> logger.info(n.getNome()));
-
-                            alunoList.clear();
+                            persisteListaAlunos(alunoList);
                         }
                     }
                 }
 
+                if(!alunoList.isEmpty()){
+                    persisteListaAlunos(alunoList);
+                }
+
+                logger.info(LISTA_ALUNOS_INSERIDA_SUCESSO);
                 deleteFiles();
 
             } catch(IOException ioException){
@@ -85,6 +80,15 @@ public class InsrtAlunoFlatfile implements ApplicationRunner {
             logger.info(NAO_HA_NOVA_LISTA_ALUNOS);
         }
 
+    }
+
+    private void persisteListaAlunos(List<Aluno> alunoList){
+        repository.saveAll(alunoList);
+        logger.info(ALUNOS_INSERIDOS);
+
+        alunoList.forEach(n -> logger.info(n.getNome()));
+
+        alunoList.clear();
     }
 
     private void deleteFiles() throws  IOException {
