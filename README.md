@@ -10,5 +10,7 @@
 
 > criar e subir o container a partir da imagem: **docker run -d -p 3306:3306 --rm --name mysql-car_cred_fiap mysql-img-car_cred_fiap:latest**
 
+> para utilizar o **gmail** como remetente, é necessário acessar o link https://www.google.com/settings/security/lesssecureapps e ativar a única opção disponível (permitir aplicativos menos seguros).
+
 3. Importe e suba o projeto na IDE.
 > se tudo estiver OK, o /actuator/health deve responder com um *status: UP* e o banco deve estar populado com o *lista_alunos.txt*.
