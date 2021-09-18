@@ -45,6 +45,8 @@ public class CompraService {
         registroCompra.setValor(compraDto.getValor());
 
         regCompraRepository.save(registroCompra);
+
+        // TODO Implementar envio de comprovante por email
     }
 
 }
