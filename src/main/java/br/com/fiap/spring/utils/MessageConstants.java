@@ -13,4 +13,8 @@ public class MessageConstants {
     public static final String ERRO_TOKEN_PARSE = "Erro ao fazer parse do token.";
     public static final String TOKEN_EXPIRADO = "Token expirado. Realize um novo login.";
 
+    public static final String COMPRA_SUCESSO = "Compra realizada com sucesso.";
+    public static final String CARTAO_NAO_EXISTE = "Cartao inexistente na base de dados.";
+    public static final String CARTAO_SENHA_INCORRETA = "Senha do cartao incorreta.";
+
 }
