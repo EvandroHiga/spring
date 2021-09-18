@@ -21,3 +21,23 @@ CREATE TABLE alunos (
 	cod VARCHAR(6),
 	PRIMARY KEY (id)
 );
+
+CREATE TABLE cartoes(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	id_aluno BIGINT,
+	numero VARCHAR(16) NOT NULL,
+	senha VARCHAR(6) NOT NULL,
+	cod_seg VARCHAR(3) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE registro_compras(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	id_cartao BIGINT NOT NULL,
+	estabelecimento VARCHAR(255) NOT NULL,
+	valor DOUBLE NOT NULL,
+	PRIMARY KEY (id)
+);
+
+ALTER TABLE cartoes ADD FOREIGN KEY (id_aluno) REFERENCES alunos(id);
+ALTER TABLE registro_compras ADD FOREIGN KEY (id_cartao) REFERENCES cartoes(id);
