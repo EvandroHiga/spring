@@ -4,14 +4,21 @@ import br.com.fiap.spring.model.dto.AuthDto;
 import br.com.fiap.spring.model.dto.JwtTokenDto;
 import br.com.fiap.spring.model.dto.UsuarioDto;
 import br.com.fiap.spring.service.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
+    Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
     private UsuarioService service;
@@ -29,9 +36,16 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity create (@RequestBody UsuarioDto usuarioDto){
         UsuarioDto usuarioCriado = service.create(usuarioDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .header("Location","/usuarios/" + usuarioCriado.getId())
-                .build();
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        try{
+            httpHeaders.setLocation(new URI("/usuarios/" + usuarioCriado.getId()));
+        } catch(URISyntaxException e){
+            logger.info(e.getMessage());
+            httpHeaders.setLocation(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).build();
     }
 
     @PostMapping("login")

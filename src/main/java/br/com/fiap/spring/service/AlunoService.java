@@ -37,6 +37,10 @@ public class AlunoService {
         return alunoModelToDto(aluno);
     }
 
+    public void deleteAlunoById(Long id){
+        repository.deleteById(id);
+    }
+
     private AlunoDto alunoModelToDto(Aluno aluno){
         AlunoDto dto = new AlunoDto();
         dto.setId(aluno.getId());
