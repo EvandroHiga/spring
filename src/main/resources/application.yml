@@ -12,8 +12,15 @@ spring:
         show_sql: true
         format_sql: true
 
+email:
+  gmail:
+    smtp: smtp.gmail.com
+    port: 587
+    username: <gmail_email>
+    password: <gmail_senha>
+
 jwt:
-  secret: higa
+  secret: fiap_mba_grupo_2
   expireInSeconds: 600
 
 file:
