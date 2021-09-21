@@ -32,7 +32,6 @@ public class CompraService {
         } else {
             return CARTAO_NAO_EXISTE;
         }
-
     }
 
     public void consultarCompraByCliente(AlunoDto alunoDto){}
@@ -48,5 +47,4 @@ public class CompraService {
 
         // TODO Implementar envio de comprovante por email
     }
-
 }
