@@ -12,10 +12,13 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, updatable = false)
     private Long id;
+
     @Column
     private String nome;
+
     @Column
     private String rm;
+
     @Column
     private String cod;
 }
