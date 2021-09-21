@@ -5,6 +5,7 @@ import br.com.fiap.spring.model.dto.ConsultaCompraDto;
 import br.com.fiap.spring.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class CompraController {
         }
     }
 
-    @GetMapping("aluno/{id}")
+    @GetMapping(value = "aluno/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity consultarComprasByClienteId(@PathVariable Long id){
         List<ConsultaCompraDto> consultaCompraDtoList = service.consultarComprasByClienteId(id);
         return ResponseEntity.status(HttpStatus.OK).body(consultaCompraDtoList);
