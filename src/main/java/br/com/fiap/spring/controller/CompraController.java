@@ -1,6 +1,5 @@
 package br.com.fiap.spring.controller;
 
-import br.com.fiap.spring.model.dto.AlunoDto;
 import br.com.fiap.spring.model.dto.CompraDto;
 import br.com.fiap.spring.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +29,4 @@ public class CompraController {
         }
     }
 
-    public void consultarCompraByCliente(@RequestBody AlunoDto alunoDto){}
 }

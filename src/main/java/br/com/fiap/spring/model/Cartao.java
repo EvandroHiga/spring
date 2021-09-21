@@ -12,13 +12,17 @@ public class Cartao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, updatable = false)
     private Long id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_aluno")
-    private Aluno idAluno;
+    private Aluno aluno;
+
     @Column
     private String numero;
+
     @Column
     private String senha;
+
     @Column
     private String cod_seg;
 }

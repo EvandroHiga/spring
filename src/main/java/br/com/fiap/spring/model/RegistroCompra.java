@@ -12,11 +12,14 @@ public class RegistroCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, updatable = false)
     private Long id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cartao")
-    private Cartao idCartao;
+    private Cartao cartao;
+
     @Column
     private String estabelecimento;
+
     @Column
     private Float valor;
 }

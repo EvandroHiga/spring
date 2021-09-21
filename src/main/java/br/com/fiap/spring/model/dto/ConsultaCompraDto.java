@@ -2,14 +2,13 @@ package br.com.fiap.spring.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AlunoDto {
-    private Long id;
+public class ConsultaCompraDto {
     private String nome;
     private String rm;
-    private String cod;
+    private String cartao;
+    private String estabelecimento;
+    private Float valor;
 }
