@@ -34,7 +34,6 @@ public class CompraService {
         } else {
             return CARTAO_NAO_EXISTE;
         }
-
     }
 
     public List<ConsultaCompraDto> consultarComprasByClienteId(Long id){
@@ -56,5 +55,4 @@ public class CompraService {
 
         // TODO Implementar o envio de comprovante por email
     }
-
 }
