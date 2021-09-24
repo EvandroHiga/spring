@@ -18,7 +18,7 @@ public class UsuarioRepositoryTest {
     UsuarioRepository usuarioRepository;
 
     @Test
-    public void deveUsuarioAcharPorUsername(){
+    public void deveAcharPorUsername(){
         //cenario
         Usuario usuario = Usuario.builder().username("usuario").password("123").build();
         usuarioRepository.save(usuario);
