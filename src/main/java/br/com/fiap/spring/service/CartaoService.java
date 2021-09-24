@@ -15,7 +15,6 @@ public class CartaoService {
 
     public Cartao validarCartao(String numCartao){
         Optional<Cartao> cartao = cartaoRepository.getCartaoByNumero(numCartao);
-
         if(cartao.isPresent()){
             return cartao.get();
         } else {
