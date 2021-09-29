@@ -11,10 +11,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static br.com.fiap.spring.utils.MessageConstants.ERRO_USERNAME_PASSWD;
 
 @RestController
 @RequestMapping("usuarios")
@@ -51,8 +55,14 @@ public class UsuarioController {
 
     @PostMapping("login")
     public ResponseEntity login(@RequestBody AuthDto authDto){
-        JwtTokenDto token = service.login(authDto);
-        return ResponseEntity.status(HttpStatus.OK).body(token.getJwtToken());
+        try {
+            JwtTokenDto token = service.login(authDto);
+            return ResponseEntity.status(HttpStatus.OK).body(token.getJwtToken());
+        } catch (InternalAuthenticationServiceException | BadCredentialsException exception){
+            logger.info(exception.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ERRO_USERNAME_PASSWD);
+        }
+
     }
 
 }
