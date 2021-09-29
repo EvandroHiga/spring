@@ -25,7 +25,7 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "all", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("ROLE_ADMIN")
     public ResponseEntity getAllAlunos() {
         List<AlunoDto> listAlunos = service.getAllAlunos();
@@ -42,6 +42,20 @@ public class AlunoController {
         }
     }
 
+
+
+    // TODO Implementar
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAlunoFiltered(
+            @RequestParam("nome") String nome,
+            @RequestParam("rm") String rm){
+        logger.info(nome);
+        logger.info(rm);
+        return null;
+    }
+
+
+
     @PostMapping
     @Secured("ROLE_ADMIN")
     public ResponseEntity insertAluno(@RequestBody AlunoDto aluno){
@@ -57,6 +71,15 @@ public class AlunoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).build();
     }
+
+
+
+    //TODO Implementar
+    @PutMapping("{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity updateAlunoById(@PathVariable Long id, @RequestBody AlunoDto alunoDto){ return null; }
+
+
 
     @DeleteMapping("{id}")
     @Secured("ROLE_ADMIN")
