@@ -8,6 +8,7 @@ public class MessageConstants {
     public static final String ERRO_PROCESSAR_ARQUIVO_ALUNOS = "::: [Erro ao processar o arquivo lista_alunos.txt => Verifique] :::";
 
     public static final String ERRO_USERNAME_PASSWD = "Authorization error. Favor verificar username/password inserido.";
+    public static final String ERRO_CRIAR_USUARIO = "Erro ao tentar criar o usuario.";
 
     public static final String TOKEN_JWT_AUSENTE = "Token nao encontrado.";
     public static final String TOKEN_JWT_FORA_PADRAO_BEARER = "Token encontrado, porem fora do padrao Bearer.";

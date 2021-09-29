@@ -44,14 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
-
-                /** actuator */
                 .antMatchers("/actuator/health").permitAll()
-                /** usuarios */
                 .antMatchers("/usuarios/login").permitAll()
-                .antMatchers("/usuarios/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/usuarios/**").hasRole("ADMIN")
-
                 .anyRequest().authenticated()
                     .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -72,7 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().mvcMatchers(HttpMethod.OPTIONS, "/**");
-        web.ignoring().mvcMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs","/webjars/**");
+        web.ignoring().mvcMatchers("/swagger-ui.html/**",
+                "/configuration/**",
+                "/swagger-resources/**",
+                "/v2/api-docs",
+                "/webjars/**");
     }
 
 }
