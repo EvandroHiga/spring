@@ -1,6 +1,7 @@
 package br.com.fiap.spring.controller;
 
 import br.com.fiap.spring.model.dto.AlunoDto;
+import br.com.fiap.spring.model.dto.AlunoUpdateDto;
 import br.com.fiap.spring.service.AlunoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,14 +69,17 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).build();
     }
 
-
-
-    //TODO Implementar
     @PutMapping("{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity updateAlunoById(@PathVariable Long id, @RequestBody AlunoDto alunoDto){ return null; }
-
-
+    public ResponseEntity updateAlunoById(@PathVariable Long id,
+                                          @RequestBody AlunoUpdateDto alunoUpdateDto){
+        AlunoDto aluno = service.updateAlunoById(id, alunoUpdateDto);
+        if(aluno == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+    }
 
     @DeleteMapping("{id}")
     @Secured("ROLE_ADMIN")

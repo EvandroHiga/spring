@@ -2,6 +2,7 @@ package br.com.fiap.spring.service;
 
 import br.com.fiap.spring.model.Aluno;
 import br.com.fiap.spring.model.dto.AlunoDto;
+import br.com.fiap.spring.model.dto.AlunoUpdateDto;
 import br.com.fiap.spring.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,9 +44,20 @@ public class AlunoService {
     }
 
     public AlunoDto insertAluno(AlunoDto alunoDto){
-        alunoDto.setNome(alunoDto.getNome().toUpperCase());
         Aluno aluno = repository.save(alunoDtoToModel(alunoDto));
         return alunoModelToDto(aluno);
+    }
+
+    public AlunoDto updateAlunoById(Long id, AlunoUpdateDto alunoUpdateDto){
+        Optional<Aluno> aluno = repository.findById(id);
+        if(aluno.isPresent()){
+            aluno.get().setNome(alunoUpdateDto.getNome());
+            aluno.get().setRm(alunoUpdateDto.getRm());
+            aluno.get().setCod(alunoUpdateDto.getCod());
+            return alunoModelToDto(repository.save(aluno.get()));
+        } else {
+            return null;
+        }
     }
 
     public void deleteAlunoById(Long id){
@@ -64,7 +76,7 @@ public class AlunoService {
     private Aluno alunoDtoToModel(AlunoDto alunoDto){
         Aluno aluno = new Aluno();
         aluno.setId(alunoDto.getId());
-        aluno.setNome(alunoDto.getNome());
+        aluno.setNome(alunoDto.getNome().toUpperCase());
         aluno.setRm(alunoDto.getRm());
         aluno.setCod(alunoDto.getCod());
         return aluno;
