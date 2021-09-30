@@ -36,7 +36,7 @@ public class UsuarioController {
     public ResponseEntity getUsuarioById(@PathVariable Long id){
         UsuarioDto usuarioDto = service.getUsuarioById(id);
         if(usuarioDto == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
         }

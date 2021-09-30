@@ -31,6 +31,17 @@ public class AlunoService {
         }
     }
 
+    public List<AlunoDto> getAlunosFiltered(String nome){
+        List<Aluno> alunoList = repository.getAlunosFiltered(nome);
+        List alunoDtoList = new ArrayList<AlunoDto>();
+        if(alunoList.isEmpty()){
+            return null;
+        } else {
+            alunoList.forEach(a -> alunoDtoList.add(alunoModelToDto(a)));
+            return alunoDtoList;
+        }
+    }
+
     public AlunoDto insertAluno(AlunoDto alunoDto){
         alunoDto.setNome(alunoDto.getNome().toUpperCase());
         Aluno aluno = repository.save(alunoDtoToModel(alunoDto));

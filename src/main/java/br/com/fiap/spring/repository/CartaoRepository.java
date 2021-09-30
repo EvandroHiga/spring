@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface CartaoRepository extends JpaRepository<Cartao, Long> {
-    @Query("select c from Cartao c where c.numero = :numero")
+    @Query("SELECT c FROM Cartao c WHERE c.numero = :numero")
     Optional<Cartao> getCartaoByNumero(@Param("numero") String numero);
 }

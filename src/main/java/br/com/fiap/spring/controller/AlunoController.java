@@ -36,25 +36,21 @@ public class AlunoController {
     public ResponseEntity getAlunoById(@PathVariable Long id){
         AlunoDto aluno = service.getAlunoById(id);
         if(aluno == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(aluno);
         }
     }
 
-
-
-    // TODO Implementar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAlunoFiltered(
-            @RequestParam("nome") String nome,
-            @RequestParam("rm") String rm){
-        logger.info(nome);
-        logger.info(rm);
-        return null;
+    public ResponseEntity getAlunosFiltered(@RequestParam("nome") String nome){
+        List<AlunoDto> alunoDtoList = service.getAlunosFiltered(nome);
+        if(alunoDtoList == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(alunoDtoList);
+        }
     }
-
-
 
     @PostMapping
     @Secured("ROLE_ADMIN")
@@ -88,7 +84,7 @@ public class AlunoController {
             service.deleteAlunoById(id);
         } catch(EmptyResultDataAccessException e){
             logger.info(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
