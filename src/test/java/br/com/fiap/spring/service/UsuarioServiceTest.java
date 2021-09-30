@@ -28,7 +28,6 @@ import static org.mockito.Mockito.verify;
 @ActiveProfiles("test")
 public class UsuarioServiceTest {
 
-
     @InjectMocks
     UsuarioService usuarioService;
 

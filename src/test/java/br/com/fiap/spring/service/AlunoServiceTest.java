@@ -24,7 +24,6 @@ import static org.mockito.Mockito.verify;
 @ActiveProfiles("test")
 public class AlunoServiceTest {
 
-
     @Mock
     private AlunoRepository repository;
 
