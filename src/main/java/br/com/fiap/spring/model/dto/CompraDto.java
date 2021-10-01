@@ -11,4 +11,5 @@ public class CompraDto {
     private String codSeg;
     private String estabelecimento;
     private Float valor;
+    private String email;
 }

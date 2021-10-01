@@ -17,6 +17,7 @@ public class MessageConstants {
     public static final String TOKEN_EXPIRADO = "Token expirado. Realize um novo login.";
 
     public static final String COMPRA_SUCESSO = "Compra realizada com sucesso.";
+    public static final String COMPRA_SUCESSO_ERRO_COMPROVANTE = "Compra efetivada, mas nao foi possivel enviar comprovante por email.";
     public static final String CARTAO_NAO_EXISTE = "Cartao inexistente na base de dados.";
     public static final String CARTAO_SENHA_INCORRETA = "Senha do cartao incorreta.";
     public static final String ERRO_CRIAR_CARTAO = "Erro ao tentar criar o cartao. Verifique se o mesmo ja existe.";
