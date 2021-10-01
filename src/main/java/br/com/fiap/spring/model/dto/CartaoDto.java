@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartaoDto {
+    private Long id;
     private Long idAluno;
     private String numero;
     private String senha;
