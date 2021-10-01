@@ -22,7 +22,7 @@ public class CompraService {
     private RegCompraRepository regCompraRepository;
 
     public String autorizarCompra(CompraDto compraDto){
-        Cartao cartao = cartaoService.validarCartao(compraDto.getNumCartao());
+        Cartao cartao = cartaoService.getCartaoByNumero(compraDto.getNumCartao());
 
         if(cartao != null){
             if(cartao.getSenha().equals(compraDto.getSenha())){
@@ -38,10 +38,11 @@ public class CompraService {
 
     public List<ConsultaCompraDto> consultarComprasByClienteId(Long id){
         List<ConsultaCompraDto> consultaCompraDtoList = regCompraRepository.findComprasByClienteId(id);
-
-        // TODO Apenas 'caminho feliz' implementado. Implementar o resto.
-
-        return consultaCompraDtoList;
+        if(consultaCompraDtoList.isEmpty()){
+            return null;
+        } else {
+            return consultaCompraDtoList;
+        }
     }
 
     private void efetivarCompra(Cartao cartao, CompraDto compraDto){

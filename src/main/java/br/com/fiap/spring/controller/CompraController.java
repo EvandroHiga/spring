@@ -33,7 +33,13 @@ public class CompraController {
     @GetMapping(value = "aluno/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity consultarComprasByClienteId(@PathVariable Long id){
         List<ConsultaCompraDto> consultaCompraDtoList = service.consultarComprasByClienteId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(consultaCompraDtoList);
+
+        if(consultaCompraDtoList == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(consultaCompraDtoList);
+        }
+
     }
 
 }

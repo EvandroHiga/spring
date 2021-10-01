@@ -42,7 +42,7 @@ public class CartaoServiceTest {
         //cenario
         Optional<Cartao> cartao1 = cartaoRepository.getCartaoByNumero("123");
         //teste
-        Cartao result = cartaoService.validarCartao(cartao1.get().getNumero());
+        Cartao result = cartaoService.getCartaoByNumero(cartao1.get().getNumero());
         //verificar
         Assertions.assertThat(result).isNotNull();
     }

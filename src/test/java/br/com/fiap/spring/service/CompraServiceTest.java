@@ -33,7 +33,7 @@ public class CompraServiceTest {
     @Test
     public void whenAutorizarCompra_CARTAO_NAO_EXISTE() {
 
-        Cartao cartao = cartaoService.validarCartao(getCompraCCInvalido().getNumCartao());
+        Cartao cartao = cartaoService.getCartaoByNumero(getCompraCCInvalido().getNumCartao());
         Assert.assertFalse(MessageConstants.CARTAO_NAO_EXISTE,Objects.isNull(cartao.getNumero()));
 
     }
