@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static br.com.fiap.spring.utils.MessageConstants.ERRO_CLIENTE_INEXISTENTE;
+import static br.com.fiap.spring.utils.MessageConstants.ERRO_CRIAR_CARTAO;
+
 @RestController
 @RequestMapping("cartoes")
 public class CartaoController {
@@ -47,12 +50,12 @@ public class CartaoController {
         try{
             cartaoCriado = service.insertCartao(cartaoDto);
             if(cartaoCriado == null){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Aluno/Cliente inexistente.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ERRO_CLIENTE_INEXISTENTE);
             } else {
                 httpHeaders.setLocation(new URI("/cartoes/" + cartaoCriado.getNumero()));
             }
         } catch(DataIntegrityViolationException exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao tentar criar o cartao. Verifique se o mesmo ja existe.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ERRO_CRIAR_CARTAO);
         } catch(URISyntaxException exception){
             logger.info(exception.getMessage());
             httpHeaders.setLocation(null);
