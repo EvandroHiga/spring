@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,19 +33,17 @@ public class CartaoController {
     @Secured("ROLE_ADMIN")
     public ResponseEntity getCartaoByNumero(@PathVariable String numero){
         Cartao cartao = service.getCartaoByNumero(numero);
-
         if(cartao == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(service.cartaoModelToDto(cartao));
         }
-
     }
 
     @PostMapping
     @Secured("ROLE_ADMIN")
     public ResponseEntity insertCartao(@RequestBody CartaoDto cartaoDto) {
-        CartaoDto cartaoCriado = null;
+        CartaoDto cartaoCriado;
         HttpHeaders httpHeaders = new HttpHeaders();
 
         try{
@@ -65,14 +64,16 @@ public class CartaoController {
 
     }
 
-
-
-
-    // TODO Implementar
+    @DeleteMapping("{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity deleteCartaoById(@PathVariable Long id){
-        return null;
+        try{
+            service.deleteCartaoById(id);
+        } catch(EmptyResultDataAccessException e){
+            logger.info(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
 
 }

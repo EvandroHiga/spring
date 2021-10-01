@@ -30,7 +30,6 @@ public class CartaoService {
 
     public CartaoDto insertCartao(CartaoDto cartaoDto){
         Optional<Aluno> aluno = alunoRepository.findById(cartaoDto.getIdAluno());
-
         if(aluno.isPresent()){
             Cartao cartao = new Cartao();
             cartao.setAluno(aluno.get());
@@ -41,8 +40,9 @@ public class CartaoService {
         } else{
             return null;
         }
-
     }
+
+    public void deleteCartaoById(Long id){ cartaoRepository.deleteById(id); }
 
     public CartaoDto cartaoModelToDto(Cartao cartao){
         CartaoDto dto = new CartaoDto();
