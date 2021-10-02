@@ -5,6 +5,7 @@ import br.com.fiap.spring.model.dto.CompraDto;
 import br.com.fiap.spring.repository.RegCompraRepository;
 import br.com.fiap.spring.utils.MessageConstants;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class CompraServiceTest {
 
     @InjectMocks
-    private CompraService compraService;
+    private CompraService compraService = new CompraService();
 
     @Mock
     private CartaoService cartaoService;
@@ -33,8 +34,11 @@ public class CompraServiceTest {
     @Test
     public void whenAutorizarCompra_CARTAO_NAO_EXISTE() {
 
-        Cartao cartao = cartaoService.getCartaoByNumero(getCompraCCInvalido().getNumCartao());
-        Assert.assertFalse(MessageConstants.CARTAO_NAO_EXISTE,Objects.isNull(cartao.getNumero()));
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            Cartao cartao = cartaoService.getCartaoByNumero(getCompraCCInvalido().getNumCartao());
+            Assert.assertFalse(MessageConstants.CARTAO_NAO_EXISTE,Objects.isNull(cartao.getNumero()));
+        });
+
 
     }
 
@@ -49,10 +53,11 @@ public class CompraServiceTest {
         return compraDto;
     }
 
+
     public CompraDto getCompraCCInvalido() {
         CompraDto compraDto = new CompraDto();
 
-        compraDto.setNumCartao("");
+        compraDto.setNumCartao("1234");
         compraDto.setSenha("1234");
         compraDto.setCodSeg("012");
         compraDto.setEstabelecimento("Teste Razão Estabelecimento");

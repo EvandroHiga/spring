@@ -24,7 +24,7 @@ public class CartaoService {
         if(cartao.isPresent()){
             return cartao.get();
         } else {
-            return null;
+            throw new IllegalArgumentException();
         }
     }
 
