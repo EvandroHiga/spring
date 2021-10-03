@@ -44,42 +44,43 @@ public class InsrtAlunoFlatfile implements ApplicationRunner {
     
     @Override
     public void run(ApplicationArguments args) {
-        if(resource.exists()){
-            try{
+    if(repository.getAlunosFiltered("YARA PEGUIM INACIO").isEmpty()) {
+        if (resource.exists()) {
+            try {
                 BufferedReader reader = new BufferedReader(new FileReader(resource.getFile()));
                 String line = "";
                 List<Aluno> alunoList = new ArrayList();
 
-                while((line = reader.readLine()) != null){
+                while ((line = reader.readLine()) != null) {
                     Matcher matcher = REGEX_NOME.matcher(line);
                     Aluno aluno = new Aluno();
 
-                    if(matcher.find()){
+                    if (matcher.find()) {
                         aluno.setNome(line.substring(NOME_INDEX_START, NOME_INDEX_END).toUpperCase().trim());
                         aluno.setRm(line.substring(RM_INDEX_START, RM_INDEX_END).trim());
                         aluno.setCod(line.substring(COD_INDEX_START, COD_INDEX_END).trim());
                         alunoList.add(aluno);
 
-                        if(alunoList.size() == ARRAY_SIZE){
+                        if (alunoList.size() == ARRAY_SIZE) {
                             persisteListaAlunos(alunoList);
                         }
                     }
                 }
 
-                if(!alunoList.isEmpty()){
+                if (!alunoList.isEmpty()) {
                     persisteListaAlunos(alunoList);
                 }
 
                 logger.info(LISTA_ALUNOS_INSERIDA_SUCESSO);
                 deleteFiles();
 
-            } catch(IOException ioException){
+            } catch (IOException ioException) {
                 logger.info(ERRO_PROCESSAR_ARQUIVO_ALUNOS);
             }
         } else {
             logger.info(NAO_HA_NOVA_LISTA_ALUNOS);
         }
-
+    }
     }
 
     private void persisteListaAlunos(List<Aluno> alunoList){

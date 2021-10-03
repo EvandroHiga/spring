@@ -34,7 +34,7 @@ public class UsuarioService {
         if(usuario.isPresent()){
             return usuarioModelToDto(usuario.get());
         } else {
-            return null;
+            throw new NullPointerException();
         }
     }
 

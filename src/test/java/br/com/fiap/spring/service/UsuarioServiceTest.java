@@ -1,12 +1,15 @@
 package br.com.fiap.spring.service;
 
 import br.com.fiap.spring.enums.Role;
+import br.com.fiap.spring.model.Cartao;
 import br.com.fiap.spring.model.Usuario;
 import br.com.fiap.spring.model.dto.JwtTokenDto;
 import br.com.fiap.spring.model.dto.UsuarioDto;
 import br.com.fiap.spring.repository.UsuarioRepository;
 import br.com.fiap.spring.security.JwtTokenUtil;
+import br.com.fiap.spring.utils.MessageConstants;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.mockito.Mockito.times;
@@ -46,14 +50,16 @@ public class UsuarioServiceTest {
 
     @Test
     public void whenCreate() {
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            Usuario usuario = usuarioDtoToModel(this.getUsuario());
+            Usuario usuarioSalvo = repository.save(usuario);
 
-        Usuario usuario = usuarioDtoToModel(this.getUsuario());
-        Usuario usuarioSalvo = repository.save(usuario);
+            usuarioService.create(this.getUsuario());
 
-        usuarioService.create(this.getUsuario());
+            Assert.assertNotNull(usuarioSalvo);
+            verify(usuarioService, times(1)).create(this.getUsuario());
+        });
 
-        Assert.assertNotNull(usuarioSalvo);
-        verify(usuarioService, times(1)).create(this.getUsuario());
 
     }
 
@@ -87,13 +93,9 @@ public class UsuarioServiceTest {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken("", "root");
 
         authenticationManager.authenticate(authToken);
-
         JwtTokenDto jwtTokenDto = new JwtTokenDto();
-
         String authenticatedToken = jwtTokenUtil.generateToken("root");
-
         jwtTokenDto.setJwtToken(authenticatedToken);
-
         Assert.assertNull(authenticatedToken);
 
     }

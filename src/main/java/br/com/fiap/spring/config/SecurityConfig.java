@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/usuarios/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/compras").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                     .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
