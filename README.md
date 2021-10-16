@@ -9,10 +9,10 @@
 > Java 11+, [Spring](https://spring.io/projects) Boot, Web, Security, Data JPA, Actuator e Mail. MySQL 8 em um container [Docker](https://www.docker.com/). Em conjunto com o Spring Security, foi utilizado tokens JWT para o controle de authorizations/authentications na utilização dos endpoints.
 
 ### Como subir
-> 1. Clone o repo com: _git clone https://github.com/EvandroHiga/spring.git_
+> 1. Clone o repo com: `git clone https://github.com/EvandroHiga/spring.git`
 > 2. Após o clone, entre no diretorio _spring/docker_ e rode:
-> - p/ criar a imagem a partir do Dockerfile: _docker build -t mysql-img-car_cred_fiap:latest ._
-> - p/ criar e subir o container a partir da imagem: _docker run -d -p 3306:3306 --rm --name mysql-car_cred_fiap mysql-img-car_cred_fiap:latest_
+> - p/ criar a imagem a partir do Dockerfile: `docker build -t mysql-img-car_cred_fiap:latest .`
+> - p/ criar e subir o container a partir da imagem: `docker run -d -p 3306:3306 --rm --name mysql-car_cred_fiap mysql-img-car_cred_fiap:latest`
 > 3. Inicie-o. Na primeira vez, o arquivo *lista_alunos.txt* será consumido para popular a tabela _alunos_. Para testar, chame _/actuator/health_ e espere por um _status: UP_. **Obs.**: para utilizar o _gmail_ como remetente no _Spring Mail_, é necessário vir [aqui](https://www.google.com/settings/security/lesssecureapps) e ativar _'permitir aplicativos menos seguros'_.
 
 ### Casos de teste e como utilizá-los
